@@ -1,0 +1,19 @@
+.home ion-content {
+  --background: #f5f5f5;
+}
+
+.home ion-list {
+  padding: 0;
+}
+
+.home ion-select {
+  padding: 0;
+}
+
+.home ion-item {
+  margin: 0;
+}
+
+.home .ion-item {
+  margin: 0;
+}

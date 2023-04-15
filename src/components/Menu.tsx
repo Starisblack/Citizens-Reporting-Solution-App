@@ -4,93 +4,150 @@ import {
   IonItem,
   IonLabel,
   IonList,
-  IonListHeader,
   IonMenu,
   IonMenuToggle,
-  IonNote,
-} from '@ionic/react';
+} from "@ionic/react";
 
-import { useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
-import './Menu.css';
+import { useLocation } from "react-router-dom";
+import {
+  personOutline,
+  logOutOutline,
+  cogOutline,
+  documentTextOutline,
+  logInOutline,
+} from "ionicons/icons";
+import "./Menu.css";
+import logo from "../assets/images/logo.svg";
+import { UserAuth } from "../context/AuthContext";
+import Alert from "./Alert/Alert";
 
-interface AppPage {
+interface menuItem {
   url: string;
   iosIcon: string;
   mdIcon: string;
   title: string;
+  clicked: any;
 }
 
-const appPages: AppPage[] = [
+const menuItems: menuItem[] = [
   {
-    title: 'Inbox',
-    url: '/page/Inbox',
-    iosIcon: mailOutline,
-    mdIcon: mailSharp
+    title: "Profile",
+    url: "/page/Profile",
+    iosIcon: personOutline,
+    mdIcon: personOutline,
+    clicked: "",
+  },
+
+  {
+    title: "Entries",
+    url: "/page/Entries",
+    iosIcon: documentTextOutline,
+    mdIcon: documentTextOutline,
+    clicked: () => {},
   },
   {
-    title: 'Outbox',
-    url: '/page/Outbox',
-    iosIcon: paperPlaneOutline,
-    mdIcon: paperPlaneSharp
+    title: "Settings",
+    url: "/page/Settings",
+    iosIcon: cogOutline,
+    mdIcon: cogOutline,
+    clicked: "",
   },
   {
-    title: 'Favorites',
-    url: '/page/Favorites',
-    iosIcon: heartOutline,
-    mdIcon: heartSharp
+    title: "LogOut",
+    url: "",
+    iosIcon: logOutOutline,
+    mdIcon: logOutOutline,
+    clicked: { type: "logOut" },
   },
-  {
-    title: 'Archived',
-    url: '/page/Archived',
-    iosIcon: archiveOutline,
-    mdIcon: archiveSharp
-  },
-  {
-    title: 'Trash',
-    url: '/page/Trash',
-    iosIcon: trashOutline,
-    mdIcon: trashSharp
-  },
-  {
-    title: 'Spam',
-    url: '/page/Spam',
-    iosIcon: warningOutline,
-    mdIcon: warningSharp
-  }
 ];
 
-const labels = ['Family', 'Friends', 'Notes', 'Work', 'Travel', 'Reminders'];
+const loginMenu: any = {
+  title: "Login",
+  url: "/login",
+  iosIcon: logInOutline,
+  mdIcon: logInOutline,
+  clicked: "",
+};
 
 const Menu: React.FC = () => {
   const location = useLocation();
+  const { signUserOut, user } = UserAuth();
+  const { alert } = Alert();
+
+  // const {state, dispatch} = useContext(AppContext);
+
+  const onClickHandler = async (title: string) => {
+    switch (title) {
+      case "LogOut":
+        return alert(signUserOut, "/");
+      default:
+        return;
+    }
+  };
+
+  let menuLists = (
+    <div>
+      <IonMenuToggle autoHide={false}>
+        <IonItem
+          onClick={() => {
+            onClickHandler(loginMenu.title);
+          }}
+          className={location.pathname === loginMenu.url ? "selected" : ""}
+          routerLink={loginMenu.url}
+          routerDirection="none"
+          lines="none"
+          detail={false}
+        >
+          <IonIcon slot="start" ios={loginMenu.iosIcon} md={loginMenu.mdIcon} />
+          <IonLabel>{loginMenu.title}</IonLabel>
+        </IonItem>
+      </IonMenuToggle>
+    </div>
+  );
+
+  if (user) {
+    menuLists = (
+      <>
+        {menuItems.map((menuItem, index) => {
+          return (
+            <IonMenuToggle key={index} autoHide={false}>
+              <IonItem
+                onClick={() => {
+                  onClickHandler(menuItem.title);
+                }}
+                className={location.pathname === menuItem.url ? "selected" : ""}
+                routerLink={menuItem.url}
+                routerDirection="none"
+                lines="none"
+                detail={false}
+              >
+                <IonIcon
+                  slot="start"
+                  ios={menuItem.iosIcon}
+                  md={menuItem.mdIcon}
+                />
+                <IonLabel>{menuItem.title}</IonLabel>
+              </IonItem>
+            </IonMenuToggle>
+          );
+        })}
+      </>
+    );
+  }
 
   return (
     <IonMenu contentId="main" type="overlay">
       <IonContent>
         <IonList id="inbox-list">
-          <IonListHeader>Inbox</IonListHeader>
-          <IonNote>hi@ionicframework.com</IonNote>
-          {appPages.map((appPage, index) => {
-            return (
-              <IonMenuToggle key={index} autoHide={false}>
-                <IonItem className={location.pathname === appPage.url ? 'selected' : ''} routerLink={appPage.url} routerDirection="none" lines="none" detail={false}>
-                  <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
-                  <IonLabel>{appPage.title}</IonLabel>
-                </IonItem>
-              </IonMenuToggle>
-            );
-          })}
-        </IonList>
+          <div className="text-center">
+            <img
+              style={{ height: "170px", width: "170px" }}
+              src={logo}
+              alt="logo"
+            />
+          </div>
 
-        <IonList id="labels-list">
-          <IonListHeader>Labels</IonListHeader>
-          {labels.map((label, index) => (
-            <IonItem lines="none" key={index}>
-              <IonIcon slot="start" icon={bookmarkOutline} />
-              <IonLabel>{label}</IonLabel>
-            </IonItem>
-          ))}
+          {menuLists}
         </IonList>
       </IonContent>
     </IonMenu>

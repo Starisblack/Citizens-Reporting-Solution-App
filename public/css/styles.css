@@ -1,0 +1,17 @@
+main{
+    padding: 1.2rem;
+}
+
+ion-item{
+    margin: 1rem 0;
+ }
+
+ ion-toolbar {
+    --background: #488eff;
+    color: #fff;
+}
+
+ion-fab{
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+  }

@@ -1,0 +1,8 @@
+.thank-you-page ion-icon {
+  font-size: 64px;
+  color: #488eff;
+}
+
+.thank-you-page ion-button {
+  --background: #488eff;
+}

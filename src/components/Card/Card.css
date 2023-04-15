@@ -1,0 +1,54 @@
+.card {
+  border: none;
+  margin: 0;
+  background-color: transparent;
+}
+
+ion-card {
+  --background: transparent;
+  margin: 1rem 0;
+}
+
+.card .md {
+  margin: 0;
+}
+.card img {
+  height: 107px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+ion-card {
+  box-shadow: none;
+}
+ion-card-title {
+  text-transform: capitalize;
+  font-size: 15px;
+}
+
+ion-card-subtitle {
+  font-size: 12px;
+}
+
+ion-card-header {
+  padding: 0 0 0 10px !important;
+}
+
+ion-card-header.ios {
+  display: flex;
+  flex-flow: column-reverse;
+}
+
+.card p {
+  padding-left: 0.7rem;
+  margin: 0.7rem 0 0 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.read-more-btn {
+  color: #488eff;
+  text-decoration: none;
+  font-size: 12px;
+}

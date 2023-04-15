@@ -1,0 +1,37 @@
+.location-container {
+  align-items: center;
+}
+/* 
+.location{
+    border-radius: 0.25rem 0 0 0.25rem;
+} */
+
+#getPosition {
+  border-radius: 0 0.25rem 0.25rem 0;
+  text-transform: capitalize;
+}
+
+ion-modal#modal {
+  --width: fit-content;
+  --min-width: 300px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
+}
+
+ion-modal#example-modal h1 {
+  margin: 20px 20px 10px 20px;
+}
+
+ion-modal#example-modal .wrapper {
+  margin-bottom: 10px;
+}
+
+.model-btn {
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+#cameraBtn {
+  text-transform: capitalize;
+}

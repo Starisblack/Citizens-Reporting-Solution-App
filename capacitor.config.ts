@@ -1,10 +1,19 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
+/// <reference types="@capacitor/push-notifications" />
+
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'side-menu-react',
+  appId: 'com.notifyMe.app',
+  appName: 'NotifyMe',
   webDir: 'build',
-  bundledWebRuntime: false
+  bundledWebRuntime: false,
+  plugins: {
+    PushNotifications: {
+      presentationOptions: ["badge", "sound", "alert"],
+    },
+
+  },
+
 };
 
 export default config;
